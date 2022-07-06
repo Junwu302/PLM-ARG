@@ -10,7 +10,7 @@ For each protein sequence, we represented it as a embedding vector using a trans
 ## 3. Web server
 An user-friendly web server can be accessed (http://www.unimd.org/HiARG).
 
-## 4. python packages
+## 4. Packages
 - python                    3.7.13
 - pytorch                   1.11.0
 - joblib                    1.1.0
