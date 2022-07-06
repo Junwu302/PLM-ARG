@@ -10,7 +10,16 @@ For each protein sequence, we represented it as a embedding vector using a trans
 ## 3. Web server
 An user-friendly web server can be accessed (http://www.unimd.org/HiARG).
 
-## 
+## 4. python packages
+- python                    3.7.13
+- pytorch                   1.11.0
+- joblib                    1.1.0
+- numpy                     1.21.5
+- pandas                    1.3.5
+- xgboost                   1.6.1
+- scikit-learn              1.0.2
+
+#### Reference 
 [1] Alcock, B.P., Raphenya, A.R., Lau, T.T.Y., Tsang, K.K., Bouchard, M., Edalatmand, A., Huynh, W., Nguyen, A.V., Cheng, A.A., Liu, S. et al. (2020) CARD 2020: antibiotic resistome surveillance with the comprehensive antibiotic resistance database. Nucleic Acids Res, 48, D517-D525.
 [2]	Kleinheinz, K.A., Joensen, K.G. and Larsen, M.V. (2014) Applying the ResFinder and VirulenceFinder web-services for easy identification of acquired antibiotic resistance and E. coli virulence genes in bacteriophage and prophage nucleotide sequences. Bacteriophage, 4, e27943.
 [3]	Doster, E., Lakin, S.M., Dean, C.J., Wolfe, C., Young, J.G., Boucher, C., Belk, K.E., Noyes, N.R. and Morley, P.S. (2020) MEGARes 2.0: a database for classification of antimicrobial drug, biocide and metal resistance determinants in metagenomic sequence data. Nucleic Acids Res, 48, D561-D569
