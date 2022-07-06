@@ -8,9 +8,11 @@ We incorporated and standardized the collected AGRs from five databases includin
 For each protein sequence, we represented it as a embedding vector using a transformer protein language model [ESM-1b](https://github.com/facebookresearch/esm), which is built based on the RoBERTa architecture and training procedure using the Uniref50 protein sequences without label supervision. To reduce the computational complexity, the proteins longer than 200 amino acids were trimmed into a fix length 200 amino acids before fed into the ESM-1b model. We generated per-sequence representations via averaging the output of the 32nd layer of ESM-1b model over the full sequence and yielding a 1280-length numeric vector for each protein. After that, we trained XGboost model for ARG identification and resistance category classification respectively using the whole HiARG-DB as well as the Non-ARGs mentioned above.
 
 ## 3. Web server
-An user-friendly web server can be accessed (http://www.unimd.org/HiARG).
+We have released a web service to process gene sequence or predicted ORF using HiARG. You can find the website at http://www.unimd.org/HiARG HiARG takes the gene sequence or predicted ORF as the input and output including both the resistance categories (if the query was classified as ARG) and the corresponding probability.
+## 4. HiARG output
+The ouput of HiARG contains the the probability of the query proteins predicted as ARG, and the probability respect to different resistance category if the ARG probability >= 0.5 (default).   
 
-## 4. Packages
+## 5. Dependencies
 - python                    3.7.13
 - pytorch                   1.11.0
 - joblib                    1.1.0
