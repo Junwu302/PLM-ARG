@@ -15,6 +15,7 @@ The ouput of HiARG contains the the probability of the query proteins predicted 
 ## 5. Dependencies
 - python                    3.7.13
 - pytorch                   1.11.0
+- fair-esm                  0.4.2
 - joblib                    1.1.0
 - numpy                     1.21.5
 - pandas                    1.3.5
