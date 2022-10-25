@@ -42,6 +42,6 @@ def prediction(in_fasta, batch_size, maxlen = 200):
        
     for i in arg_ind:
         cats = [cat_index[k] for k,v in enumerate(pred_res.iloc[i, 3:]) if v>=0.5]
-        pred_res.iloc[i, 2] = ';'.join(cats)
+        pred_res.iloc[i, 1] = ';'.join(cats)
     return pred_res
 
