@@ -9,7 +9,7 @@ For each protein sequence, we represented it as a embedding vector using a trans
 ## 3. Code usage
 ### 1) Predicting ARG with the pretrained models
 ### 2) Retraining the models
-You need to make sure that your fasta file header follows this schema:\n
+You need to make sure that your fasta file header follows this schema:\
 `>gene_id|source|arg_category|arg_name|arg_group`
 ## 4. Web server
 We have released a web service to process gene sequence or predicted ORF using HiARG. You can find the website at http://www.unimd.org/HiARG HiARG takes the gene sequence or predicted ORF as the input and output including both the resistance categories (if the query was classified as ARG) and the corresponding probability.
