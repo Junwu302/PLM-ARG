@@ -11,7 +11,7 @@ import joblib
 from utility import extract
 from esm.pretrained import load_model_and_alphabet_local
 
-def prediction(in_fasta, batch_size, maxlen = 200):
+def predict(in_fasta, batch_size, maxlen = 200):
     ## 1. load arg model and category model and category index
     arg_model = joblib.load('models/arg_model.pkl') #joblib.load('models/arg_model.pkl')
     cat_model = joblib.load('models/cat_model.pkl') #joblib.load('models/cat_model.pkl')
