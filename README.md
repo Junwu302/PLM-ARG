@@ -7,19 +7,27 @@ We incorporated and standardized the collected AGRs from five databases includin
 ## 2. Model architecture
 For each protein sequence, we represented it as a embedding vector using a transformer protein language model [ESM-1b](https://github.com/facebookresearch/esm), which is built based on the RoBERTa architecture and training procedure using the Uniref50 protein sequences without label supervision. To reduce the computational complexity, the proteins longer than 200 amino acids were trimmed into a fix length 200 amino acids before fed into the ESM-1b model. We generated per-sequence representations via averaging the output of the 32nd layer of ESM-1b model over the full sequence and yielding a 1280-length numeric vector for each protein. After that, we trained XGboost model for ARG identification and resistance category classification respectively using the whole HiARG-DB as well as the Non-ARGs mentioned above.
 ## 3. Code usage
-### 1) Predicting ARG with the pretrained models
+### 1) Predicting ARG using to new a python file and then run it.
+```python
+from predict import predict
+maxlen = 200
+batch_size = 10
+in_fasta = "your.faa"
+out_table = "your_HiARG.tsv",faa) 
+predict(in_fasta, batch_size=batch_size, maxlen = maxlen, out_table = out_table)
+```
 ### 2) Retraining the models
 You need to make sure that your fasta file header follows this schema:\
 `>gene_id|source|arg_category|arg_name|arg_group`
-then put your training data (e.g. arg_db.faa) in the 'db/' fold. Using the following template to new a python file and then just run it.
+Putting your training sequences (e.g. arg_db.faa) in the 'db/' fold and using the following template to new a python file and then just run it.
 ```python
 from train import train
-trim_len = 400
+trim_len = 200
 min_seq = 50
 input_fasta = "db/arg_db.faa"
-arg_mod = "models/ARG_model_new.h5"
-category_mod = "models/Category_model_new.h5"
-category_index = "HiARG_Category_Index_new.csv"
+arg_mod = "models/ARG_model.h5"
+category_mod = "models/Category_model.h5"
+category_index = "HiARG_Category_Index.csv"
 train(input_fasta=input_fasta, trim_len=trim_len,min_seq = min_seq, arg_mod = arg_mod, category_mod = category_mod, category_index = category_index) 
 ```
 ## 4. Web server
