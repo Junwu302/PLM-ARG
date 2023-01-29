@@ -12,8 +12,8 @@ For each protein sequence, we represented it as a embedding vector using a trans
 You need to make sure that your fasta file header follows this schema:\
 `>gene_id|source|arg_category|arg_name|arg_group`
 then put your training data (e.g. arg_db.faa) in the 'db/' fold. Using the following template to new a python file and then just run it.
-just run:\
-`from train import train
+```python
+from train import train
 trim_len = 400
 min_seq = 50
 input_fasta = "db/arg_db.faa"
@@ -21,7 +21,7 @@ arg_mod = "models/ARG_model_new.h5"
 category_mod = "models/Category_model_new.h5"
 category_index = "HiARG_Category_Index_new.csv"
 train(input_fasta=input_fasta, trim_len=trim_len,min_seq = min_seq, arg_mod = arg_mod, category_mod = category_mod, category_index = category_index) 
-`
+```
 ## 4. Web server
 We have released a web service to process gene sequence or predicted ORF using HiARG. You can find the website at http://www.unimd.org/HiARG HiARG takes the gene sequence or predicted ORF as the input and output including both the resistance categories (if the query was classified as ARG) and the corresponding probability.
 ## 5. HiARG output
