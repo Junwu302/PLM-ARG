@@ -11,7 +11,7 @@ import joblib
 from utility import extract
 from esm.pretrained import load_model_and_alphabet_local
 
-def predict(in_fasta, batch_size, maxlen = 200):
+def predict(in_fasta, batch_size=batch_size, maxlen = 200, out_table = out_table):
     ## 1. load arg model and category model and category index
     arg_model = joblib.load('models/arg_model.pkl') #joblib.load('models/arg_model.pkl')
     cat_model = joblib.load('models/cat_model.pkl') #joblib.load('models/cat_model.pkl')
@@ -43,5 +43,5 @@ def predict(in_fasta, batch_size, maxlen = 200):
     for i in arg_ind:
         cats = [cat_index[k] for k,v in enumerate(pred_res.iloc[i, 3:]) if v>=0.5]
         pred_res.iloc[i, 1] = ';'.join(cats)
-    return pred_res
+    pred_res.to_csv(out_table, sep='\t', index=False)
 
