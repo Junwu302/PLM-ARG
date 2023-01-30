@@ -1,3 +1,4 @@
+
 # HiARG: Homology Independent Antibiotic Resistance Gene Identification based on a Protein Language Model
 
 [![jUXeg0.png](https://s1.ax1x.com/2022/07/06/jUXeg0.png)](https://imgtu.com/i/jUXeg0)
@@ -7,28 +8,26 @@ We incorporated and standardized the collected AGRs from five databases includin
 ## 2. Model architecture
 For each protein sequence, we represented it as a embedding vector using a transformer protein language model [ESM-1b](https://github.com/facebookresearch/esm), which is built based on the RoBERTa architecture and training procedure using the Uniref50 protein sequences without label supervision. To reduce the computational complexity, the proteins longer than 200 amino acids were trimmed into a fix length 200 amino acids before fed into the ESM-1b model. We generated per-sequence representations via averaging the output of the 32nd layer of ESM-1b model over the full sequence and yielding a 1280-length numeric vector for each protein. After that, we trained XGboost model for ARG identification and resistance category classification respectively using the whole HiARG-DB as well as the Non-ARGs mentioned above.
 ## 3. Code usage
-### 1) Predicting ARG using to new a python file and then run it.
-```python
-from predict import predict
-maxlen = 200
-batch_size = 10
-in_fasta = "your.faa"
-out_table = "your_HiARG.tsv",faa) 
-predict(in_fasta, batch_size=batch_size, maxlen = maxlen, out_table = out_table)
+To use the HiARG codes, you first need to download the 'esm1b_t33_650M_UR50S.pt' and put it under the fold of 'models/'.
+### 1) Predicting ARG using the pre-trained models. 
+Just run the following command:
+```bash
+python hiarg.py predict -i proteins.faa --arg-model models/arg_model.pkl --cat-model models/cat_model.pkl --cat-index models/Category_Index.csv -o hiarg_res.tsv --min-prob 0.5 -b 10
 ```
-### 2) Retraining the models
-You need to make sure that your fasta file header follows this schema:\
+or run the following command with default parameters:
+```bash
+python hiarg.py predict -i proteins.faa -o hiarg_res.tsv
+```
+### 2) Retraining the HiARG models with your own data
+You first need to make sure that your fasta file header follows this schema:\
 `>gene_id|source|arg_category|arg_name|arg_group`
-Putting your training sequences (e.g. arg_db.faa) in the 'db/' fold and using the following template to new a python file and then just run it.
-```python
-from train import train
-trim_len = 200
-min_seq = 50
-input_fasta = "db/arg_db.faa"
-arg_mod = "models/ARG_model.h5"
-category_mod = "models/Category_model.h5"
-category_index = "HiARG_Category_Index.csv"
-train(input_fasta=input_fasta, trim_len=trim_len,min_seq = min_seq, arg_mod = arg_mod, category_mod = category_mod, category_index = category_index) 
+Putting your training sequences (e.g. arg_db.faa) in the 'db/' fold and run the following command.
+```bash
+python hiarg.py train -i proteins.faa --arg-model models/arg_model.pkl --cat-model models/cat_model.pkl --cat-index models/Category_Index.csv --min-seq 50 -b 10
+```
+or run the following command with default parameters:
+```bash
+python hiarg.py train -i arg_db.faa
 ```
 ## 4. Web server
 We have released a web service to process gene sequence or predicted ORF using HiARG. You can find the website at http://www.unimd.org/HiARG HiARG takes the gene sequence or predicted ORF as the input and output including both the resistance categories (if the query was classified as ARG) and the corresponding probability.
