@@ -18,31 +18,31 @@ def run_predict(args):
             output_file = args.output_file)
 
 def main():
-    parser = argparse.ArgumentParser(prog='HiARG')
+    parser = argparse.ArgumentParser(prog='PLM-ARG')
     subparsers = parser.add_subparsers()
     # run the prediction section
-    hiarg_p = subparsers.add_parser("predict", help="Predict ARG from genes or ORF")
-    hiarg_p.add_argument('-i', '--input-file', required=True, help='Input file (Fasta input file)')
-    hiarg_p.add_argument('--arg-model', default='models/arg_model.pkl', help='Model for ARG identification')
-    hiarg_p.add_argument('--cat-model', default='models/cat_model.pkl', help='Model for resistance category classification')
-    hiarg_p.add_argument('--cat-index', default='models/Category_Index.csv', help='File for the resistance category index')
-    hiarg_p.add_argument('-o', '--output-file', required=True, help='Output file where to store results')
-    hiarg_p.add_argument('--min-prob', default=0.5, type=float, help='Minimum probability cutoff [Default: 0.5]')
-    hiarg_p.add_argument('-b','--batch-size', default=10, type=float,help='Number of the samples fed to the model iteratively [Default: 10]')
-    hiarg_p.set_defaults(func=run_predict)
+    plm_arg_p = subparsers.add_parser("predict", help="Predict ARG from genes or ORF")
+    plm_arg_p.add_argument('-i', '--input-file', required=True, help='Input file (Fasta input file)')
+    plm_arg_p.add_argument('--arg-model', default='models/arg_model.pkl', help='Model for ARG identification')
+    plm_arg_p.add_argument('--cat-model', default='models/cat_model.pkl', help='Model for resistance category classification')
+    plm_arg_p.add_argument('--cat-index', default='models/Category_Index.csv', help='File for the resistance category index')
+    plm_arg_p.add_argument('-o', '--output-file', required=True, help='Output file where to store results')
+    plm_arg_p.add_argument('--min-prob', default=0.5, type=float, help='Minimum probability cutoff [Default: 0.5]')
+    plm_arg_p.add_argument('-b','--batch-size', default=10, type=float,help='Number of the samples fed to the model iteratively [Default: 10]')
+    plm_arg_p.set_defaults(func=run_predict)
 
     # run the train section
-    hiarg_t = subparsers.add_parser("train", help="Retrain the HiARG models")
-    hiarg_t.add_argument('-i', '--input-file', required=True, help='Input file (Fasta input file)')
-    hiarg_t.add_argument('--arg-model', default='models/arg_model.pkl', help='Model for ARG identification')
-    hiarg_t.add_argument('--cat-model', default='models/cat_model.pkl',
+    plm_arg_t = subparsers.add_parser("train", help="Retrain the PLM-ARG models")
+    plm_arg_t.add_argument('-i', '--input-file', required=True, help='Input file (Fasta input file)')
+    plm_arg_t.add_argument('--arg-model', default='models/arg_model.pkl', help='Model for ARG identification')
+    plm_arg_t.add_argument('--cat-model', default='models/cat_model.pkl',
                          help='Model for resistance category classification')
-    hiarg_t.add_argument('--cat-index', default='models/Category_Index.csv',
+    plm_arg_t.add_argument('--cat-index', default='models/Category_Index.csv',
                          help='File for the resistance category index')
-    hiarg_t.add_argument('--min-seq', default=50, type=float, help='Minimal sequence number for the category training [Default: 50]')
-    hiarg_t.add_argument('-b', '--batch-size', default=10, type=float,
+    plm_arg_t.add_argument('--min-seq', default=50, type=float, help='Minimal sequence number for the category training [Default: 50]')
+    plm_arg_t.add_argument('-b', '--batch-size', default=10, type=float,
                          help='Number of the samples fed to the model iteratively [Default: 10]')
-    hiarg_t.set_defaults(func=run_train)
+    plm_arg_t.set_defaults(func=run_train)
 
     # Get all arguments
     args = parser.parse_args()
