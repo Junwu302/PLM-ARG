@@ -1,7 +1,7 @@
 
-# HiARG: Homology Independent Antibiotic Resistance Gene Identification based on a Protein Language Model
+# PLM-ARG: Antibiotic Resistance Gene Identification using a pretrained protein language model
 
-[![jUXeg0.png](https://s1.ax1x.com/2022/07/06/jUXeg0.png)](https://imgtu.com/i/jUXeg0)
+![Fig 1.png](https://img1.imgtp.com/2023/05/12/jppD7XGg.png)
 
 ## 1. Training data collection
 We incorporated and standardized the collected AGRs from five databases including CARD (Release Date: 05/27/2022) <sup>[1]</sup>, ResFinder (Release Date: 24/05/2021)<sup>[2]</sup>, MEGARes (Release Date: 14/10/2019)<sup>[3,4]</sup>, ARGMiner (Release Version: v1.1.1.A)<sup>[5]</sup>, AMRFinderPlus (Release Date: 11/08/2021)<sup>[6]</sup> and HMD-ARG-DB<sup>[7]</sup>(Fig. 2A). First, considering that various genomic technologies detected the ARGs in these databases, we converted all ARGs with DNA sequence format into UniPort FASTA protein sequence format using EMBOSS tool Transeq. Then, we removed the duplicated ARGs by clustering all their sequences with CD-HIT and discarding duplicates with 100% identity and the same length. Finally, resistance categories of ARGs were assigned based on their conferred antibiotic drug classes with manual correction based on the WHO access, watch, reserve, classification of antibiotics for evaluation and monitoring of use (AWaRe) classification system (https://apps.who.int/iris/rest/bitstreams/1374989/retrieve). 
@@ -16,23 +16,23 @@ python hiarg.py predict -i proteins.faa --arg-model models/arg_model.pkl --cat-m
 ```
 or run the following command with default parameters:
 ```bash
-python hiarg.py predict -i proteins.faa -o hiarg_res.tsv
+python plm_arg.py predict -i proteins.faa -o plm_arg_res.tsv
 ```
 ### 2) Retraining the HiARG models with your own data
 You first need to make sure that your fasta file header follows this schema:\
 `>gene_id|source|arg_category|arg_name|arg_group`
 Putting your training sequences (e.g. arg_db.faa) in the 'db/' fold and run the following command.
 ```bash
-python hiarg.py train -i proteins.faa --arg-model models/arg_model.pkl --cat-model models/cat_model.pkl --cat-index models/Category_Index.csv --min-seq 50 -b 10
+python plm_arg.py train -i proteins.faa --arg-model models/arg_model.pkl --cat-model models/cat_model.pkl --cat-index models/Category_Index.csv --min-seq 50 -b 10
 ```
 or run the following command with default parameters:
 ```bash
-python hiarg.py train -i arg_db.faa
+python plm_arg.py train -i arg_db.faa
 ```
 ## 4. Web server
-We have released a web service to process gene sequence or predicted ORF using HiARG. You can find the website at http://www.unimd.org/HiARG HiARG takes the gene sequence or predicted ORF as the input and output including both the resistance categories (if the query was classified as ARG) and the corresponding probability.
+We have released a web service to process gene sequence or predicted ORF using HiARG. You can find the website at http://www.unimd.org/PLA_ARG PLM-ARG takes the gene sequence or predicted ORF as the input and output including both the resistance categories (if the query was classified as ARG) and the corresponding probability.
 ## 5. HiARG output
-The ouput of HiARG contains the the probability of the query proteins predicted as ARG, and the probability respect to different resistance category if the ARG probability >= 0.5 (default).   
+The ouput of PLM-ARG contains the the probability of the query proteins predicted as ARG, and the probability respect to different resistance category if the ARG probability >= 0.5 (default).   
 
 ## 6. Dependencies
 - python                    3.7.13
