@@ -30,7 +30,7 @@ or run the following command with default parameters:
 python plm_arg.py train -i arg_db.faa
 ```
 ## 4. Web server
-We have released a web service to process gene sequence or predicted ORF using PLM-ARG. You can find the website at http://www.unimd.org/PLA_ARG PLM-ARG takes the gene sequence or predicted ORF as the input and output including both the resistance categories (if the query was classified as ARG) and the corresponding probability.
+We have released a web service to process gene sequence or predicted ORF using PLM-ARG. You can find the website at http://www.unimd.org/PLM-ARG. PLM-ARG takes the gene sequence or predicted ORF as the input and output including both the resistance categories (if the query was classified as ARG) and the corresponding probability.
 ## 5. PLM-ARG output
 The ouput of PLM-ARG contains the the probability of the query proteins predicted as ARG, and the probability respect to different resistance category if the ARG probability >= 0.5 (default).   
 
